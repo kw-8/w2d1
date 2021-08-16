@@ -24,9 +24,24 @@ class Dog
         @favorite_foods
     end
 
-    #
+    # setters
     def name=(str)
         @name = str
+    end
+    def breed=(str)
+        @breed = str
+    end
+    def age=(num)
+        @age = num
+    end
+    
+    # other methods
+    def bark
+        @age > 3 ? @bark.upcase : @bark.downcase
+    end
+
+    def favorite_food?(food)
+        @favorite_foods.any?{|f| food.downcase == f.downcase}
     end
     
 end
