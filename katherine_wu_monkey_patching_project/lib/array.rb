@@ -37,6 +37,21 @@ class Array
   end
 
   def my_uniq
-    
+    new_arr = []
+    self.each{|el| new_arr << el if !new_arr.include?(el)}
+    new_arr
   end
+
+  def my_transpose
+    return nil if self.empty?
+    new_arr = Array.new( self.length ){ Array.new(self.length) }
+    self.each_with_index do |sub_arr, i|
+        sub_arr.each_with_index do |el, j|
+            new_arr[j][i] = self[i][j]
+        end
+    end
+    new_arr
+  end
+
+
 end
