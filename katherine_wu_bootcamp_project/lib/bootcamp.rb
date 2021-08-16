@@ -1,3 +1,4 @@
+require "byebug"
 class Bootcamp
   def initialize(name, slogan, student_capacity)
     @name = name
@@ -5,7 +6,7 @@ class Bootcamp
     @student_capacity = student_capacity
     @teachers = []
     @students = []
-    @grades = Hash.new([])
+    @grades = Hash.new{|hash, key| hash[key] = []}
   end
 
   def name
@@ -20,15 +21,41 @@ class Bootcamp
   def students
     @students
   end
+
+  # setter / action
   def hire(teacher)
     @teachers << teacher
   end
   def enroll(student)
-    if @students.length < student_capacity
+    if @students.length < @student_capacity
         @students << student
         return true
-    else return false
+    else false
     end
+  end
+
+  def enrolled?(student)
+    @students.include?(student)
+  end
+
+  def student_to_teacher_ratio
+    @students.length / @teachers.length
+  end
+
+  def add_grade(student, grade)
+    return false if !@students.include?(student)
+    @grades[student] << grade
+    # debugger
+    true
+  end
+
+  def num_grades(student)
+    @grades[student].length
+  end
+
+  def average_grade(student)
+    return nil if @grades[student].length == 0 || !@grades.has_key?(student)
+    @grades[student].sum / @grades[student].length
   end
 
 end
